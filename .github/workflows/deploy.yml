@@ -67,5 +67,29 @@ jobs:
           aws eks update-kubeconfig --name node-cluster --region ap-south-1  
 
       - name: Deploy to EKS
+        id: deploy-step
         run: |
-          kubectl apply -f deployment.yml  # Apply your deployment
+          kubectl apply -f deployment.yml || echo "Deployment failed" > status.log
+          if [ -f status.log ]; then echo "failed"; else echo "success"; fi
+        env:
+          status: ${{ steps.deploy-step.outcome }}
+
+      - name: Send Email Notification
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.sendgrid.net
+          server_port: 587
+          username: apikey
+          password: ${{ secrets.SENDGRID_API_KEY }}
+          subject: 'Deployment Status for Node.js Application'
+          body: |
+            Hello,
+
+            The deployment to EKS for the Node.js application has been completed.
+
+            Deployment Status: ${{ steps.deploy-step.outcome }}
+
+            Regards,
+            GitHub Actions
+          to: kosanapunithsai@gmail.com
+          from: kosanapunithsai@gmail.com
