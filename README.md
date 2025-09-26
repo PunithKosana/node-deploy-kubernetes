@@ -12,10 +12,10 @@ Ensure the Kubernetes kubectl command-line tool is installed and configured for 
 A Docker Hub account with credentials for pushing Docker images.
 GitHub Secrets: Add the following secrets to your GitHub repository under Settings > Secrets and Variables > Actions:
 
-AWS_ACCESS_KEY_ID: Your AWS access key ID.
-AWS_SECRET_ACCESS_KEY: Your AWS secret access key.
-DOCKER_USERNAME: Your Docker Hub username.
-DOCKER_PASSWORD: Your Docker Hub password.
+`AWS_ACCESS_KEY_ID`: Your AWS access key ID.
+`AWS_SECRET_ACCESS_KEY`: Your AWS secret access key.
+`DOCKER_USERNAME`: Your Docker Hub username.
+`DOCKER_PASSWORD`: Your Docker Hub password.
 Kubernetes Deployment File: Include a deployment.yml file in the repository for deploying the application to EKS.
 
 # CI/CD Pipeline Overview:
